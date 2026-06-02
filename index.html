@@ -455,6 +455,7 @@ function renderCampanha() {
     { label:'CTR', valor:fmtPct(s.ctr), icon:'📈', cls:'verde', comp:ant?compHtml(s.ctr,ant.ctr):'' },
     { label:'Frequência', valor:s.frequencia.toFixed(2), icon:'🔁', cls:'navy', comp:ant?compHtml(s.frequencia,ant.frequencia,true):'' },
     { label:'Cliques', valor:fmtNum(s.cliques), icon:'👆', cls:'', comp:ant?compHtml(s.cliques,ant.cliques):'' },
+    { label:'Alcance', valor:fmtNum(s.alcance), icon:'📡', cls:'verde', comp:ant?compHtml(s.alcance,ant.alcance):'' },
   ];
   document.getElementById('cards-campanha').innerHTML = cards.map(c=>`
     <div class="card ${c.cls}">
