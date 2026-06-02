@@ -206,7 +206,7 @@
         <div class="chart-box"><canvas id="chartGeralBarras"></canvas></div>
       </div>
       <div class="secao">
-        <div class="secao-titulo"><span class="bar"></span>Top Anúncios — Resultados</div>
+        <div class="secao-titulo"><span class="bar"></span>Top Anúncios — Visitas/dia</div>
         <div class="ranking" id="ranking-geral"></div>
       </div>
     </div>
@@ -217,7 +217,7 @@
         <table id="tabela-geral">
           <thead><tr>
             <th>Mês</th><th>Investimento</th><th>Impressões</th><th>Cliques</th><th>CTR</th>
-            <th>CPC</th><th>CPM</th><th>Alcance</th><th>Frequência</th><th>Resultados</th><th>Custo/Result.</th>
+            <th>CPC</th><th>CPM</th><th>Alcance</th><th>Frequência</th><th>Visitas</th><th>Custo/Result.</th>
           </tr></thead>
           <tbody></tbody>
         </table>
@@ -247,7 +247,7 @@
           <thead><tr>
             <th>Mês</th><th>Início</th><th>Término</th><th>Investimento</th><th>Impressões</th>
             <th>Cliques</th><th>CTR</th><th>CPC</th><th>CPM</th><th>Alcance</th><th>Freq.</th>
-            <th>Resultados</th><th>Custo/Result.</th>
+            <th>Visitas</th><th>Custo/Result.</th>
           </tr></thead>
           <tbody></tbody>
         </table>
@@ -279,7 +279,7 @@
         <table id="tabela-anuncio">
           <thead><tr>
             <th>Anúncio</th><th>Dias</th><th>Investimento</th><th>Alcance</th><th>Cliques</th>
-            <th>CPC</th><th>Resultados</th><th>Custo/Result.</th>
+            <th>CPC</th><th>Visitas</th><th>Custo/Result.</th>
           </tr></thead>
           <tbody></tbody>
         </table>
@@ -339,8 +339,49 @@ function campanhasFiltradas() {
 
 function anunciosFiltrados() {
   const mes = getMesFiltro();
-  if (mes === 'Todos') return DADOS.anuncios;
-  return DADOS.anuncios.filter(a => a.mes === mes);
+  if (mes !== 'Todos') return DADOS.anuncios.filter(a => a.mes === mes);
+
+  // "Todos": agrupa por nome e soma as métricas dos meses
+  const grupos = {};
+  for (const a of DADOS.anuncios) {
+    if (!grupos[a.nome]) {
+      grupos[a.nome] = {
+        nome: a.nome, campanha: a.campanha, conjunto: a.conjunto,
+        investimento: 0, impressoes: 0, alcance: 0, cliques: 0, resultados: 0,
+        _datas: [], _termos: []
+      };
+    }
+    const g = grupos[a.nome];
+    g.investimento += a.investimento;
+    g.impressoes += a.impressoes;
+    g.alcance += a.alcance;
+    g.cliques += a.cliques;
+    g.resultados += a.resultados;
+    if (a.data) g._datas.push(parseDataBR(a.data));
+    if (a.data_termino) g._termos.push(parseDataBR(a.data_termino));
+  }
+
+  // Finaliza: calcula CPC, CTR, custo e pega menor data início + maior data fim
+  return Object.values(grupos).map(g => {
+    g.cpc = g.cliques > 0 ? (g.investimento / g.cliques) : 0;
+    g.ctr = g.impressoes > 0 ? (g.cliques / g.impressoes * 100) : 0;
+    g.custo_resultado = g.resultados > 0 ? (g.investimento / g.resultados) : 0;
+    // Período total: menor início até maior término (engloba todos os meses)
+    if (g._datas.length) g.data = fmtDataBR(new Date(Math.min(...g._datas)));
+    if (g._termos.length) g.data_termino = fmtDataBR(new Date(Math.max(...g._termos)));
+    delete g._datas; delete g._termos;
+    return g;
+  });
+}
+
+function parseDataBR(s) {
+  const [d,m,y] = s.split('/').map(Number);
+  return new Date(y, m-1, d).getTime();
+}
+function fmtDataBR(d) {
+  const dia = String(d.getDate()).padStart(2,'0');
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  return `${dia}/${m}/${d.getFullYear()}`;
 }
 
 // Soma campanhas (quando "Todos" ou para agregação)
@@ -394,9 +435,9 @@ function renderGeral() {
 
   const cards = [
     { label:'Investimento', valor:fmtMoney(s.investimento), icon:'💰', cls:'', comp: ant?compHtml(s.investimento,ant.investimento):'' },
-    { label:'Resultados', valor:fmtNum(s.resultados), icon:'🎯', cls:'verde', comp: ant?compHtml(s.resultados,ant.resultados):'' },
-    { label:'Custo / Resultado', valor:fmtMoney(s.custo_resultado), icon:'🏷️', cls:'amarelo', comp: ant?compHtml(s.custo_resultado,ant.custo_resultado,true):'' },
-    { label:'Seguidores', valor:'+'+fmtNum(s.seguidores), icon:'👥', cls:'navy', comp: ant?compHtml(s.seguidores,ant.seguidores):'' },
+    { label:'Visitas ao perfil', valor:fmtNum(s.resultados), icon:'🎯', cls:'verde', comp: ant?compHtml(s.resultados,ant.resultados):'' },
+    { label:'Custo / Visita', valor:fmtMoney(s.custo_resultado), icon:'🏷️', cls:'amarelo', comp: ant?compHtml(s.custo_resultado,ant.custo_resultado,true):'' },
+    { label:'Novos Seguidores', valor:'+'+fmtNum(s.seguidores), icon:'👥', cls:'navy', comp: ant?compHtml(s.seguidores,ant.seguidores):'' },
   ];
   document.getElementById('cards-geral').innerHTML = cards.map(c => `
     <div class="card ${c.cls}">
@@ -447,15 +488,15 @@ function renderCampanha() {
 
   const cards = [
     { label:'Investimento', valor:fmtMoney(s.investimento), icon:'💰', cls:'', comp:ant?compHtml(s.investimento,ant.investimento):'' },
-    { label:'Resultados', valor:fmtNum(s.resultados), icon:'🎯', cls:'verde', comp:ant?compHtml(s.resultados,ant.resultados):'' },
-    { label:'Custo / Result.', valor:fmtMoney(s.custo_resultado), icon:'🏷️', cls:'amarelo', comp:ant?compHtml(s.custo_resultado,ant.custo_resultado,true):'' },
-    { label:'Seguidores', valor:'+'+fmtNum(s.seguidores), icon:'👥', cls:'navy', comp:ant?compHtml(s.seguidores,ant.seguidores):'' },
     { label:'CPM', valor:fmtMoney(s.cpm), icon:'📊', cls:'', comp:ant?compHtml(s.cpm,ant.cpm,true):'' },
     { label:'CPC', valor:fmtMoney(s.cpc), icon:'🖱️', cls:'', comp:ant?compHtml(s.cpc,ant.cpc,true):'' },
+    { label:'Custo por Visita', valor:fmtMoney(s.custo_resultado), icon:'🏷️', cls:'amarelo', comp:ant?compHtml(s.custo_resultado,ant.custo_resultado,true):'' },
     { label:'CTR', valor:fmtPct(s.ctr), icon:'📈', cls:'verde', comp:ant?compHtml(s.ctr,ant.ctr):'' },
-    { label:'Frequência', valor:s.frequencia.toFixed(2), icon:'🔁', cls:'navy', comp:ant?compHtml(s.frequencia,ant.frequencia,true):'' },
-    { label:'Cliques', valor:fmtNum(s.cliques), icon:'👆', cls:'', comp:ant?compHtml(s.cliques,ant.cliques):'' },
     { label:'Alcance', valor:fmtNum(s.alcance), icon:'📡', cls:'verde', comp:ant?compHtml(s.alcance,ant.alcance):'' },
+    { label:'Cliques', valor:fmtNum(s.cliques), icon:'👆', cls:'', comp:ant?compHtml(s.cliques,ant.cliques):'' },
+    { label:'Visitas ao perfil', valor:fmtNum(s.resultados), icon:'🎯', cls:'verde', comp:ant?compHtml(s.resultados,ant.resultados):'' },
+    { label:'Novos Seguidores', valor:'+'+fmtNum(s.seguidores), icon:'👥', cls:'navy', comp:ant?compHtml(s.seguidores,ant.seguidores):'' },
+    { label:'Frequência', valor:fmtPct(s.frequencia), icon:'🔁', cls:'navy', comp:ant?compHtml(s.frequencia,ant.frequencia,true):'' },
   ];
   document.getElementById('cards-campanha').innerHTML = cards.map(c=>`
     <div class="card ${c.cls}">
@@ -500,7 +541,7 @@ function renderFunil(s) {
     { label:'Impressões', valor:s.impressoes, cor:'#2BA8E0', w:100 },
     { label:'Alcance', valor:s.alcance, cor:'#1B8FC4', w:78 },
     { label:'Cliques', valor:s.cliques, cor:'#157FA8', w:54 },
-    { label:'Resultados', valor:s.resultados, cor:'#0F4C75', w:32 },
+    { label:'Visitas ao perfil', valor:s.resultados, cor:'#0F4C75', w:32 },
   ];
   const max = s.impressoes || 1;
   document.getElementById('funil-campanha').innerHTML = etapas.map(e=>{
@@ -585,11 +626,11 @@ function rankItem(a, i) {
     <div class="rank-pos ${posCls}">${i+1}</div>
     <div class="rank-info">
       <div class="rank-nome">${a.nome}</div>
-      <div class="rank-sub">${fmtNum(a.resultados)} result. em ${a.dias_ativos} dias · ${fmtMoney(a.investimento)}</div>
+      <div class="rank-sub">${fmtNum(a.resultados)} visitas em ${a.dias_ativos} dias · ${fmtMoney(a.investimento)}</div>
     </div>
     <div class="rank-metric">
       <div class="v">${efic}</div>
-      <div class="l">Result./dia</div>
+      <div class="l">Visitas/dia</div>
     </div>
   </div>`;
 }
