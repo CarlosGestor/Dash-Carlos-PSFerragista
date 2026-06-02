@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PS Ferragista — Dashboard Meta Ads</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
 <style>
   :root {
     --azul: #2BA8E0;
@@ -25,7 +25,7 @@
     --sombra-hover: 0 8px 28px rgba(43,47,74,0.13);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--texto); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
+  body { background:var(--bg); color:var(--texto); font-family:'Nunito Sans',sans-serif; -webkit-font-smoothing:antialiased; }
 
   /* HEADER */
   header {
@@ -39,7 +39,7 @@
   }
   .header-divider { width:1px; height:34px; background:rgba(255,255,255,0.2); }
   .header-titulo { display:flex; flex-direction:column; }
-  .header-titulo .marca { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:20px; color:#fff; letter-spacing:0.5px; line-height:1; text-transform:uppercase; }
+  .header-titulo .marca { font-family:'Nunito Sans',sans-serif; font-weight:800; font-size:18px; color:#fff; letter-spacing:-0.3px; line-height:1; }
   .header-titulo .sub { font-size:11px; color:var(--azul); font-weight:600; letter-spacing:1.5px; text-transform:uppercase; margin-top:3px; }
   .header-right { display:flex; align-items:center; gap:14px; }
   .meta-badge { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.08); padding:7px 14px; border-radius:30px; border:1px solid rgba(255,255,255,0.12); }
@@ -53,7 +53,7 @@
   /* CONTROLES */
   .controles { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:14px; }
   .abas { display:flex; gap:6px; background:var(--card); padding:5px; border-radius:13px; box-shadow:var(--sombra); }
-  .aba { padding:10px 22px; font-size:13.5px; font-weight:600; color:var(--muted); cursor:pointer; border-radius:9px; transition:all .22s; border:none; background:transparent; font-family:'Inter',sans-serif; }
+  .aba { padding:10px 22px; font-size:13.5px; font-weight:600; color:var(--muted); cursor:pointer; border-radius:9px; transition:all .22s; border:none; background:transparent; font-family:'Nunito Sans',sans-serif; }
   .aba:hover { color:var(--navy); }
   .aba.ativa { background:linear-gradient(120deg, var(--azul), var(--azul-esc)); color:#fff; box-shadow:0 3px 12px rgba(43,168,224,0.4); }
 
@@ -61,7 +61,7 @@
   .filtro-mes label { font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; }
   .filtro-mes select {
     padding:10px 16px; border-radius:10px; border:1.5px solid var(--borda); background:var(--card);
-    font-size:13.5px; font-weight:600; color:var(--navy); cursor:pointer; font-family:'Inter',sans-serif;
+    font-size:13.5px; font-weight:600; color:var(--navy); cursor:pointer; font-family:'Nunito Sans',sans-serif;
     outline:none; transition:border-color .2s; min-width:130px;
   }
   .filtro-mes select:hover { border-color:var(--azul); }
@@ -86,12 +86,12 @@
   .card.navy::before { background:var(--navy); }
   .card.verde::before { background:var(--verde); }
   .card-topo { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
-  .card-label { font-size:11.5px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.7px; }
+  .card-label { font-size:11.5px; font-weight:600; color:var(--muted); letter-spacing:0.2px; }
   .card-icon { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:16px; background:rgba(43,168,224,0.1); }
   .card.amarelo .card-icon { background:rgba(245,181,0,0.13); }
   .card.navy .card-icon { background:rgba(43,47,74,0.09); }
   .card.verde .card-icon { background:rgba(40,180,99,0.12); }
-  .card-valor { font-family:'Barlow Condensed',sans-serif; font-size:32px; font-weight:800; color:var(--navy); line-height:1; letter-spacing:0.3px; }
+  .card-valor { font-family:'Nunito Sans',sans-serif; font-size:27px; font-weight:800; color:var(--navy); line-height:1.1; letter-spacing:-0.5px; }
   .card-comp { display:flex; align-items:center; gap:5px; margin-top:9px; font-size:12px; font-weight:600; }
   .card-comp.sobe { color:var(--verde); }
   .card-comp.desce { color:var(--vermelho); }
@@ -100,7 +100,7 @@
 
   /* SEÇÕES / GRÁFICOS */
   .secao { background:var(--card); border-radius:15px; padding:22px 24px; box-shadow:var(--sombra); margin-bottom:22px; border:1px solid rgba(226,231,240,0.6); }
-  .secao-titulo { font-family:'Barlow Condensed',sans-serif; font-size:19px; font-weight:700; color:var(--navy); margin-bottom:18px; text-transform:uppercase; letter-spacing:0.5px; display:flex; align-items:center; gap:9px; }
+  .secao-titulo { font-family:'Nunito Sans',sans-serif; font-size:16px; font-weight:800; color:var(--navy); margin-bottom:18px; letter-spacing:-0.2px; display:flex; align-items:center; gap:9px; }
   .secao-titulo .bar { width:4px; height:18px; background:var(--azul); border-radius:2px; }
   .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
   .chart-box { position:relative; height:300px; }
@@ -110,7 +110,7 @@
   .ranking { display:flex; flex-direction:column; gap:11px; }
   .rank-item { display:flex; align-items:center; gap:14px; padding:13px 16px; background:#F8FAFC; border-radius:11px; border:1px solid var(--borda); transition:all .2s; }
   .rank-item:hover { border-color:var(--azul); transform:translateX(3px); }
-  .rank-pos { width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:15px; color:#fff; flex-shrink:0; }
+  .rank-pos { width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-family:'Nunito Sans',sans-serif; font-weight:800; font-size:15px; color:#fff; flex-shrink:0; }
   .rank-pos.p1 { background:linear-gradient(135deg,#F5B500,#E89B00); }
   .rank-pos.p2 { background:linear-gradient(135deg,#9BA3B5,#7A8296); }
   .rank-pos.p3 { background:linear-gradient(135deg,#C88A4B,#A56C33); }
@@ -119,7 +119,7 @@
   .rank-nome { font-size:13.5px; font-weight:600; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .rank-sub { font-size:11.5px; color:var(--muted); margin-top:2px; }
   .rank-metric { text-align:right; flex-shrink:0; }
-  .rank-metric .v { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:800; color:var(--azul); line-height:1; }
+  .rank-metric .v { font-family:'Nunito Sans',sans-serif; font-size:20px; font-weight:800; color:var(--azul); line-height:1; }
   .rank-metric .l { font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
 
   /* TABELA */
@@ -144,7 +144,7 @@
   .funil-etapa:hover { transform:scale(1.02); }
   .funil-conteudo { text-align:center; z-index:2; }
   .funil-label { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.8px; opacity:0.92; }
-  .funil-valor { font-family:'Barlow Condensed',sans-serif; font-size:25px; font-weight:800; line-height:1; margin-top:2px; }
+  .funil-valor { font-family:'Nunito Sans',sans-serif; font-size:25px; font-weight:800; line-height:1; margin-top:2px; }
   .funil-pct { position:absolute; right:16px; top:50%; transform:translateY(-50%); font-size:12px; font-weight:700; opacity:0.8; z-index:2; }
 
   .footer-nota { text-align:center; font-size:11.5px; color:var(--muted); margin-top:30px; padding-top:20px; border-top:1px solid var(--borda); }
@@ -202,7 +202,7 @@
 
     <div class="grid-2">
       <div class="secao">
-        <div class="secao-titulo"><span class="bar"></span>Cliques vs CPC por Mês</div>
+        <div class="secao-titulo"><span class="bar"></span>Investimento por Mês</div>
         <div class="chart-box"><canvas id="chartGeralBarras"></canvas></div>
       </div>
       <div class="secao">
@@ -278,7 +278,7 @@
       <div class="tabela-wrap">
         <table id="tabela-anuncio">
           <thead><tr>
-            <th>Anúncio</th><th>Investimento</th><th>Alcance</th><th>Cliques</th>
+            <th>Anúncio</th><th>Dias</th><th>Investimento</th><th>Alcance</th><th>Cliques</th>
             <th>CPC</th><th>Resultados</th><th>Custo/Result.</th>
           </tr></thead>
           <tbody></tbody>
@@ -408,17 +408,17 @@ function renderGeral() {
       ${c.comp}
     </div>`).join('');
 
-  // Gráfico Cliques vs CPC por mês
+  // Gráfico Investimento por mês
   const meses = (mes === 'Todos') ? DADOS.meses : [mes];
   const dadosBarra = meses.map(m => {
     const c = DADOS.campanhas.find(x => x.mes === m);
-    return c ? { mes:m, cliques:c.cliques, cpc:c.cpc } : { mes:m, cliques:0, cpc:0 };
+    return c ? { mes:m, investimento:c.investimento } : { mes:m, investimento:0 };
   });
-  renderChartBarras('chartGeralBarras', dadosBarra);
+  renderChartInvestimento('chartGeralBarras', dadosBarra);
 
-  // Ranking top anúncios (sempre por resultados)
-  const ans = [...anunciosFiltrados()].sort((a,b)=>b.resultados-a.resultados).slice(0,5);
-  document.getElementById('ranking-geral').innerHTML = ans.map((a,i)=>rankItem(a,i,'resultados','Resultados')).join('') || semDados();
+  // Ranking top anúncios (por eficiência diária = resultados ÷ dias ativos)
+  const ans = rankearPorEficiencia(anunciosFiltrados()).slice(0,5);
+  document.getElementById('ranking-geral').innerHTML = ans.map((a,i)=>rankItem(a,i)).join('') || semDados();
 
   // Tabela
   const tb = document.querySelector('#tabela-geral tbody');
@@ -517,10 +517,10 @@ function renderFunil(s) {
 /* ========== ABA ANÚNCIO ========== */
 function renderAnuncio() {
   const ans = anunciosFiltrados();
-  const ordenados = [...ans].sort((a,b)=>b.resultados-a.resultados);
+  const ordenados = rankearPorEficiencia(ans);
 
-  // Ranking
-  document.getElementById('ranking-anuncio').innerHTML = ordenados.map((a,i)=>rankItem(a,i,'resultados','Resultados')).join('') || semDados();
+  // Ranking por eficiência diária
+  document.getElementById('ranking-anuncio').innerHTML = ordenados.map((a,i)=>rankItem(a,i)).join('') || semDados();
 
   // Rosca impressões
   renderChartRosca('chartAnuncioRosca', ordenados);
@@ -545,27 +545,50 @@ function renderAnuncio() {
   tb.innerHTML = ordenados.map(a=>`
     <tr>
       <td class="destaque">${a.nome}</td>
+      <td>${a.dias_ativos} dias</td>
       <td>${fmtMoney(a.investimento)}</td>
       <td>${fmtNum(a.alcance)}</td>
       <td>${fmtNum(a.cliques)}</td>
       <td>${fmtMoney(a.cpc)}</td>
       <td class="azul">${fmtNum(a.resultados)}</td>
       <td class="verde-t">${fmtMoney(a.custo_resultado)}</td>
-    </tr>`).join('') || `<tr><td colspan="7" style="text-align:center;color:var(--muted)">Sem dados</td></tr>`;
+    </tr>`).join('') || `<tr><td colspan="8" style="text-align:center;color:var(--muted)">Sem dados</td></tr>`;
 }
 
 /* ========== HELPERS ========== */
-function rankItem(a, i, campo, label) {
+// Calcula dias ativos entre data inicio e data termino (formato dd/mm/yyyy)
+function calcDiasAtivos(a) {
+  if (!a.data || !a.data_termino) return 1;
+  const parse = (s) => {
+    const [d,m,y] = s.split('/').map(Number);
+    return new Date(y, m-1, d);
+  };
+  const ini = parse(a.data);
+  const fim = parse(a.data_termino);
+  const diff = Math.round((fim - ini) / (1000*60*60*24)) + 1; // +1 inclui o dia inicial
+  return diff > 0 ? diff : 1;
+}
+
+// Ranqueia anúncios por eficiência diária (resultados ÷ dias ativos)
+function rankearPorEficiencia(arr) {
+  return [...arr].map(a => {
+    const dias = calcDiasAtivos(a);
+    return { ...a, dias_ativos: dias, eficiencia: a.resultados / dias };
+  }).sort((x,y) => y.eficiencia - x.eficiencia);
+}
+
+function rankItem(a, i) {
   const posCls = i===0?'p1':i===1?'p2':i===2?'p3':'px';
+  const efic = a.eficiencia !== undefined ? a.eficiencia.toFixed(1) : '—';
   return `<div class="rank-item">
     <div class="rank-pos ${posCls}">${i+1}</div>
     <div class="rank-info">
       <div class="rank-nome">${a.nome}</div>
-      <div class="rank-sub">${fmtMoney(a.investimento)} · CPC ${fmtMoney(a.cpc)}</div>
+      <div class="rank-sub">${fmtNum(a.resultados)} result. em ${a.dias_ativos} dias · ${fmtMoney(a.investimento)}</div>
     </div>
     <div class="rank-metric">
-      <div class="v">${fmtNum(a[campo])}</div>
-      <div class="l">${label}</div>
+      <div class="v">${efic}</div>
+      <div class="l">Result./dia</div>
     </div>
   </div>`;
 }
@@ -573,6 +596,31 @@ function rankItem(a, i, campo, label) {
 function semDados() { return `<div style="text-align:center;color:var(--muted);padding:30px;font-size:13px">Sem dados de anúncios para este período</div>`; }
 
 function destroyChart(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
+
+function renderChartInvestimento(id, dados) {
+  destroyChart(id);
+  const ctx = document.getElementById(id);
+  charts[id] = new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels: dados.map(d=>d.mes),
+      datasets:[
+        { label:'Investimento (R$)', data:dados.map(d=>d.investimento), backgroundColor:'#2BA8E0', borderRadius:10, maxBarThickness:90 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{ display:false },
+        tooltip:{ callbacks:{ label:(c)=> 'R$ ' + c.parsed.y.toLocaleString('pt-BR',{minimumFractionDigits:2}) } }
+      },
+      scales:{
+        y:{ beginAtZero:true, grid:{color:'#EEF1F6'}, ticks:{ font:{family:'Nunito Sans'}, callback:(v)=>'R$ '+v } },
+        x:{ grid:{display:false}, ticks:{font:{family:'Nunito Sans',weight:'700'}} }
+      }
+    }
+  });
+}
 
 function renderChartBarras(id, dados) {
   destroyChart(id);
@@ -617,7 +665,7 @@ function renderChartRosca(id, ans) {
     },
     options:{
       responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{ position:'bottom', labels:{ font:{ family:'Inter', size:11 }, padding:12, usePointStyle:true } } },
+      plugins:{ legend:{ position:'bottom', labels:{ font:{ family:'Nunito Sans', size:11 }, padding:12, usePointStyle:true } } },
       cutout:'58%'
     }
   });
@@ -626,11 +674,11 @@ function renderChartRosca(id, ans) {
 function chartOpts({dualAxis=false}={}) {
   const o = {
     responsive:true, maintainAspectRatio:false,
-    plugins:{ legend:{ position:'top', labels:{ font:{family:'Inter',size:12}, usePointStyle:true, padding:14 } } },
-    scales:{ y:{ beginAtZero:true, grid:{color:'#EEF1F6'}, ticks:{font:{family:'Inter'}} }, x:{ grid:{display:false}, ticks:{font:{family:'Inter',weight:'600'}} } }
+    plugins:{ legend:{ position:'top', labels:{ font:{family:'Nunito Sans',size:12}, usePointStyle:true, padding:14 } } },
+    scales:{ y:{ beginAtZero:true, grid:{color:'#EEF1F6'}, ticks:{font:{family:'Nunito Sans'}} }, x:{ grid:{display:false}, ticks:{font:{family:'Nunito Sans',weight:'600'}} } }
   };
   if (dualAxis) {
-    o.scales.y1 = { beginAtZero:true, position:'right', grid:{drawOnChartArea:false}, ticks:{font:{family:'Inter'}} };
+    o.scales.y1 = { beginAtZero:true, position:'right', grid:{drawOnChartArea:false}, ticks:{font:{family:'Nunito Sans'}} };
   }
   return o;
 }
