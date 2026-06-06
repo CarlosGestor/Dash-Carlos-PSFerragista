@@ -154,11 +154,121 @@
     .g3 { grid-template-columns:1fr; }
     .grid-2 { grid-template-columns:1fr; }
   }
-  @media (max-width:640px) {
-    .g4,.g5,.g3 { grid-template-columns:1fr; }
-    .abas { width:100%; overflow-x:auto; }
-    .wrap { padding:18px; }
-    header { padding:0 18px; }
+
+  /* ── TABLET ── */
+  @media (max-width:768px) {
+    .wrap { padding:16px 14px 50px; }
+
+    /* Header: duas linhas */
+    header {
+      height:auto;
+      padding:10px 14px;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:8px;
+    }
+    .header-left { gap:10px; }
+    .logo-ps { height:34px; }
+    .header-titulo .marca { font-size:14px; }
+    .header-titulo .sub { font-size:10px; letter-spacing:1px; }
+    .header-right {
+      width:100%;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .meta-badge { padding:5px 10px; }
+    .meta-badge span { font-size:11px; }
+    .atualizado { font-size:10px; }
+
+    /* Controles: abas em cima, filtro embaixo */
+    .controles {
+      flex-direction:column;
+      align-items:stretch;
+      gap:10px;
+    }
+    .abas {
+      width:100%;
+      justify-content:stretch;
+    }
+    .aba {
+      flex:1;
+      padding:9px 6px;
+      font-size:12px;
+      text-align:center;
+    }
+    .filtro-mes {
+      justify-content:flex-end;
+    }
+    .filtro-mes select { font-size:12.5px; min-width:110px; }
+
+    /* Cards: 2 colunas no tablet */
+    .g4 { grid-template-columns:repeat(2,1fr); }
+    .g5 { grid-template-columns:repeat(2,1fr); }
+    .g3 { grid-template-columns:1fr; }
+    .card-valor { font-size:22px; }
+
+    /* Funil: full width no mobile */
+    .funil-etapa { width:100% !important; border-radius:8px; margin-bottom:2px; }
+    .funil-pct { right:10px; }
+
+    /* Gráficos */
+    .chart-box { height:240px; }
+    .chart-box.alto { height:280px; }
+
+    /* Ranking: nome pode quebrar linha */
+    .rank-nome { white-space:normal; font-size:12.5px; }
+    .rank-sub { font-size:11px; }
+    .rank-metric .v { font-size:17px; }
+
+    /* Tabelas: fonte menor */
+    table { font-size:11.5px; }
+    thead th { padding:10px 10px; font-size:10.5px; }
+    tbody td { padding:10px 10px; }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width:480px) {
+    .wrap { padding:12px 10px 50px; }
+
+    header { padding:8px 12px; }
+    .header-divider { display:none; }
+    .logo-ps { height:30px; }
+    .header-titulo .marca { font-size:13px; }
+    .header-titulo .sub { display:none; }
+
+    /* Cards: 2 colunas compactas */
+    .g4, .g5, .g3 { grid-template-columns:repeat(2,1fr); gap:10px; }
+    .cards-grid { gap:10px; margin-bottom:14px; }
+    .card { padding:14px 12px; }
+    .card-valor { font-size:19px; letter-spacing:-0.3px; }
+    .card-label { font-size:10.5px; }
+    .card-icon { width:28px; height:28px; font-size:13px; }
+    .card-comp { font-size:11px; margin-top:6px; }
+
+    /* Seções */
+    .secao { padding:16px 14px; margin-bottom:14px; }
+    .secao-titulo { font-size:14px; margin-bottom:12px; }
+
+    /* Abas: fonte menor ainda */
+    .aba { font-size:11px; padding:8px 4px; }
+
+    /* Funil */
+    .funil-etapa { height:52px; }
+    .funil-label { font-size:10px; }
+    .funil-valor { font-size:19px; }
+    .funil-pct { font-size:10px; right:8px; }
+
+    /* Ranking: esconde subinfo pesada */
+    .rank-sub { font-size:10.5px; }
+
+    /* Gráfico menor */
+    .chart-box { height:200px; }
+    .chart-box.alto { height:240px; }
+
+    /* Tabela: mínimo possível */
+    table { font-size:11px; }
+    thead th { padding:8px 8px; font-size:10px; }
+    tbody td { padding:8px 8px; }
   }
 </style>
 </head>
